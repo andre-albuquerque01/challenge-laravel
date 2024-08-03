@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('v2')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
+Route::prefix('v1')->group(function () {
     Route::post('user', [UserController::class, 'store']);
-    
-    // Route::middleware('auth:api')->group(function () {
-    //     Route::put('update', [UserController::class, 'update']);
-    //     Route::get('', [UserController::class, 'delete']);
-    //     Route::get('show', [UserController::class, 'show']);
-    //     Route::apiResource('product', ProductController::class);
-    // });
+    Route::post('/login', [AuthController::class, 'login']);
+
+    Route::middleware('auth:api')->group(function () {
+        Route::put('update', [UserController::class, 'update']);
+        Route::get('', [UserController::class, 'delete']);
+        Route::get('show', [UserController::class, 'show']);
+        Route::apiResource('product', ProductController::class);
+    });
 });

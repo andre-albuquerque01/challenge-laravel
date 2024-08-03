@@ -8,6 +8,27 @@ use App\Http\Requests\UserRequest;
 use App\Service\UserService;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Schema(
+ *     schema="User",
+ *     type="object",
+ *     @OA\Property(
+ *         property="idUser",
+ *         type="integer",
+ *         description="User ID"
+ *     ),
+ *     @OA\Property(
+ *         property="name",
+ *         type="string",
+ *         description="User name"
+ *     ),
+ *     @OA\Property(
+ *         property="email",
+ *         type="string",
+ *         description="User email"
+ *     )
+ * )
+ */
 class UserController extends Controller
 {
     private $userService;
@@ -16,15 +37,47 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/users",
+     *     tags={"Users"},
+     *     summary="Create users",
+     *     description="Create users",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/User")
+     *         ),
+     *     ),
+     * )
+     */
     public function store(UserRequest $request)
     {
         try {
-           return $this->userService->store($request->validated());
+            return $this->userService->store($request->validated());
         } catch (\Exception $e) {
             throw new GeneralExceptionCatch($e->getMessage());
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/users",
+     *     tags={"Users"},
+     *     summary="Get list of users",
+     *     description="Returns list of users",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/User")
+     *         ),
+     *     ),
+     * )
+     */
     public function show()
     {
         try {
@@ -33,7 +86,22 @@ class UserController extends Controller
             throw new GeneralExceptionCatch($e->getMessage());
         }
     }
-
+    /** 
+     * @OA\Put(
+     *     path="/api/v1/users",
+     *     tags={"Users"},
+     *     summary="Update users",
+     *     description="Update users",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/User")
+     *         ),
+     *     ),
+     * )
+     */
     public function update(UserRequest $request)
     {
         try {

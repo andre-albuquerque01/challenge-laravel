@@ -8,6 +8,33 @@ use App\Http\Requests\ProductRequest;
 use App\Service\ProductService;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Schema(
+ *     schema="Product",
+ *     type="object",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         description="Product ID"
+ *     ),
+ *     @OA\Property(
+ *         property="name",
+ *         type="string",
+ *         description="Product name"
+ *     ),
+ *     @OA\Property(
+ *         property="price",
+ *         type="number",
+ *         format="float",
+ *         description="Product price"
+ *     ),
+ *     @OA\Property(
+ *         property="description",
+ *         type="string",
+ *         description="Product description"
+ *     )
+ * )
+ */
 class ProductController extends Controller
 {
     private $productService;
@@ -17,6 +44,22 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/products",
+     *     tags={"Products"},
+     *     summary="Get list of products",
+     *     description="Returns list of products",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Product")
+     *         ),
+     *     ),
+     * )
+     */
     public function index()
     {
         try {
@@ -25,6 +68,24 @@ class ProductController extends Controller
             throw new GeneralExceptionCatch($e->getMessage());
         }
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/v1/products",
+     *     tags={"Products"},
+     *     summary="Create product",
+     *     description="Create product",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *     ),
+     * )
+     */
     public function store(ProductRequest $request)
     {
         try {
@@ -33,6 +94,31 @@ class ProductController extends Controller
             throw new GeneralExceptionCatch($e->getMessage());
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/products/{id}",
+     *     tags={"Products"},
+     *     summary="Get product by ID",
+     *     description="Returns a single product",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of product to return",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Product not found"
+     *     ),
+     * )
+     */
     public function show(int $id)
     {
         try {
@@ -41,6 +127,35 @@ class ProductController extends Controller
             throw new GeneralExceptionCatch($e->getMessage());
         }
     }
+
+    /**
+     * @OA\Put(
+     *     path="/api/v1/products/{id}",
+     *     tags={"Products"},
+     *     summary="Update product",
+     *     description="Update product",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of product to update",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Product not found"
+     *     ),
+     * )
+     */
     public function update(ProductRequest $request, int $id)
     {
         try {
@@ -49,6 +164,30 @@ class ProductController extends Controller
             throw new GeneralExceptionCatch($e->getMessage());
         }
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/products/{id}",
+     *     tags={"Products"},
+     *     summary="Delete product",
+     *     description="Delete product",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of product to delete",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Product not found"
+     *     ),
+     * )
+     */
     public function destroy(int $id)
     {
         try {
