@@ -17,11 +17,43 @@ class AuthController extends Controller
         $this->userService = $userService;
     }
 
+        /**
+     * @OA\Post(
+     *     path="/api/v1/login",
+     *     tags={"Users"},
+     *     summary="Login",
+     *     description="Login",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/User")
+     *         ),
+     *     ),
+     * )
+     */
     public function login(AuthRequest $request)
     {
         return $this->userService->login($request->validated());
     }
 
+        /**
+     * @OA\Post(
+     *     path="/api/v1/logout",
+     *     tags={"Users"},
+     *     summary="Logout",
+     *     description="Logout",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/User")
+     *         ),
+     *     ),
+     * )
+     */
     public function logout()
     {
         auth()->logout();

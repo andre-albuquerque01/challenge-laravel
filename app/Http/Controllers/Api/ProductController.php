@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
  *     schema="Product",
  *     type="object",
  *     @OA\Property(
- *         property="id",
+ *         property="idProduct",
  *         type="integer",
  *         description="Product ID"
  *     ),
