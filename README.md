@@ -2,7 +2,7 @@
 
 ## Requisitos do Sistema
 
-Para operar o sistema, são necessários os seguintes requisitos mínimos na sua máquina: PHP, Composer e Docker. O PHP e o Composer são essenciais para executar o Laravel, que contém a API principal do sistema. O Docker é utilizado para virtualizar o ambiente no qual a API é executada. Estes componentes garantem a funcionalidade e o desempenho ideais do nosso sistema de forma integrada e eficiente.
+Para operar o sistema, são necessários os seguintes requisitos mínimos na sua máquina: PHP, Composer e Docker. O PHP e o Composer são essenciais para executar o Laravel, que contém a API principal do sistema. O Docker é utilizado para virtualizar o ambiente no qual a API é executada.
 
 ## Arquitetura do Sistema
 
@@ -72,6 +72,17 @@ No arquivo .env, defina a URL base do Swagger:
 L5_SWAGGER_CONST_HOST=http://project.test/api/v1
 ```
 
+As variáveis de ambiente do banco de dados devem estar da seguinte forma:
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
+
 Inicie o servidor da API:
 
 ```bash
@@ -96,48 +107,64 @@ No Linux:
 sudo ./vendor/bin/sail down
 ```
 
+Após inicializar o servidor, realize a migração do banco de dados:
+
+```bash
+sudo ./vendor/bin/sail artisan migrate
+```
+
+Para acessar o Swagger:
+
+```bash
+http://localhost/api/documentation
+```
+
 ### Passo 3: Funcionamento do Sistema
 
-O sistema é um API RESTful desenvolvida com Laravel. Ele fornece um conjunto de rotas para gerenciar o usuário e os produtos com as seguintes operações:
+O sistema é uma API RESTful desenvolvida com Laravel. Ele fornece um conjunto de rotas para gerenciar usuários e produtos com as seguintes operações:
+
+As URLs da API começam com `http://localhost/api/v1/`
+
+Rotas RESTful para Usuário
+
+```bash
+POST /login: Autentica o usuário.
+```
+
+```bash
+POST /logout: Remove a autenticação do usuário.
+```
+
+```bash
+POST /users: Cria um novo usuário.
+```
+
+```bash
+GET /users: Retorna os detalhes de um usuário específico.
+```
+
+```bash
+PUT /users: Atualiza um usuário existente.
+```
 
 Rotas RESTful para Produtos
 
 ```bash
-POST /api/v1/login: Autenticar o usuário.
+GET /products: Retorna uma lista de todos os produtos.
 ```
 
 ```bash
-POST /api/v1/logout: Remove a autenticação o usuário.
+POST /products: Cria um novo produto.
 ```
 
 ```bash
-POST /api/v1/users: Cria um novo usuário.
+GET /products/{id}: Retorna os detalhes de um produto específico identificado pelo {id}.
 ```
 
 ```bash
-GET /api/v1/users: Retorna os detalhes de um usuário específico.
+PUT /products/{id}: Atualiza um produto existente identificado pelo {id}.
 ```
 
 ```bash
-PUT /api/v1/users: Atualiza um usuário existente.
-```
-
-```bash
-GET /api/v1/products: Retorna uma lista de todos os produtos.
-```
-
-```bash
-POST /api/v1/products: Cria um novo produto.
-```
-
-```bash
-GET /api/v1/products/{id}: Retorna os detalhes de um produto específico identificado pelo {id}.
-```
-
-```bash
-PUT /api/v1/products/{id}: Atualiza um produto existente identificado pelo {id}.
-```
-
-```bash
-DELETE /api/v1/products/{id}: Remove um produto existente identificado pelo {id}.
+DELETE /products/{id}: Remove um produto existente identificado pelo {id}.
 ```
