@@ -19,7 +19,7 @@ class UserService
                 throw new AuthException("Email or password incorrect");
             }
 
-            return new GeneralResource(['token' => $token]);
+            return ['token' => $token];
         } catch (\Exception $e) {
             throw new GeneralExceptionCatch($e->getMessage());
         }

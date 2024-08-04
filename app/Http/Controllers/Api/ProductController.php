@@ -50,6 +50,7 @@ class ProductController extends Controller
      *     tags={"Products"},
      *     summary="Get list of products",
      *     description="Returns list of products",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
@@ -75,6 +76,7 @@ class ProductController extends Controller
      *     tags={"Products"},
      *     summary="Create product",
      *     description="Create product",
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -110,6 +112,7 @@ class ProductController extends Controller
      *     tags={"Products"},
      *     summary="Get product by ID",
      *     description="Returns a single product",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -143,6 +146,7 @@ class ProductController extends Controller
      *     tags={"Products"},
      *     summary="Update product",
      *     description="Update product",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -185,6 +189,7 @@ class ProductController extends Controller
      *     tags={"Products"},
      *     summary="Delete product",
      *     description="Delete product",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

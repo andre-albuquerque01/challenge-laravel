@@ -90,6 +90,7 @@ class UserController extends Controller
      *     tags={"Users"},
      *     summary="Get list of users",
      *     description="Returns list of users",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
@@ -115,6 +116,7 @@ class UserController extends Controller
      *     tags={"Users"},
      *     summary="Update users",
      *     description="Update users",
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(

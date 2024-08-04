@@ -17,7 +17,6 @@ class AuthController extends Controller
         $this->userService = $userService;
     }
 
-
     /**
      * @OA\Post(
      *     path="/api/v1/login",
@@ -35,7 +34,10 @@ class AuthController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/User")
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="token", type="string")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=401,
@@ -54,6 +56,7 @@ class AuthController extends Controller
      *     tags={"Users"},
      *     summary="Logout",
      *     description="Logout",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
