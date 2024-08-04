@@ -26,12 +26,23 @@ use Illuminate\Http\Request;
  *         property="email",
  *         type="string",
  *         description="User email"
+ *     ),
+ *     @OA\Property(
+ *         property="password",
+ *         type="string",
+ *         description="User password"
+ *     ),
+ *     @OA\Property(
+ *         property="password_confirmation",
+ *         type="string",
+ *         description="User password confirmation"
  *     )
  * )
  */
 class UserController extends Controller
 {
     private $userService;
+
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -43,14 +54,25 @@ class UserController extends Controller
      *     tags={"Users"},
      *     summary="Create users",
      *     description="Create users",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string"),
+     *             @OA\Property(property="password_confirmation", type="string")
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/User")
-     *         ),
+     *         @OA\JsonContent(ref="#/components/schemas/User"),
      *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request",
+     *     )
      * )
      */
     public function store(UserRequest $request)
@@ -86,20 +108,31 @@ class UserController extends Controller
             throw new GeneralExceptionCatch($e->getMessage());
         }
     }
+
     /** 
      * @OA\Put(
      *     path="/api/v1/users",
      *     tags={"Users"},
      *     summary="Update users",
      *     description="Update users",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string")
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/User")
-     *         ),
+     *         @OA\JsonContent(ref="#/components/schemas/User"),
      *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request",
+     *     )
      * )
      */
     public function update(UserRequest $request)

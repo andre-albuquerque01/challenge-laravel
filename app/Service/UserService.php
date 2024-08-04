@@ -18,9 +18,8 @@ class UserService
             if (!$token = auth()->attempt($data)) {
                 throw new AuthException("Email or password incorrect");
             }
-            return [
-                'access_token' => $token
-            ];
+
+            return new GeneralResource(['token' => $token]);
         } catch (\Exception $e) {
             throw new GeneralExceptionCatch($e->getMessage());
         }

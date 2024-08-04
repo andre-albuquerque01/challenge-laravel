@@ -17,20 +17,30 @@ class AuthController extends Controller
         $this->userService = $userService;
     }
 
-        /**
+
+    /**
      * @OA\Post(
      *     path="/api/v1/login",
      *     tags={"Users"},
      *     summary="Login",
      *     description="Login",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string")
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/User")
-     *         ),
+     *         @OA\JsonContent(ref="#/components/schemas/User")
      *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
      * )
      */
     public function login(AuthRequest $request)
@@ -38,7 +48,7 @@ class AuthController extends Controller
         return $this->userService->login($request->validated());
     }
 
-        /**
+    /**
      * @OA\Post(
      *     path="/api/v1/logout",
      *     tags={"Users"},
@@ -48,10 +58,10 @@ class AuthController extends Controller
      *         response=200,
      *         description="successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/User")
-     *         ),
-     *     ),
+     *             type="object",
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
      * )
      */
     public function logout()

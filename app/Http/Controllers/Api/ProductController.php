@@ -23,15 +23,15 @@ use Illuminate\Http\Request;
  *         description="Product name"
  *     ),
  *     @OA\Property(
+ *         property="description",
+ *         type="string",
+ *         description="Product description"
+ *     ),
+ *     @OA\Property(
  *         property="price",
  *         type="number",
  *         format="float",
  *         description="Product price"
- *     ),
- *     @OA\Property(
- *         property="description",
- *         type="string",
- *         description="Product description"
  *     )
  * )
  */
@@ -77,13 +77,22 @@ class ProductController extends Controller
      *     description="Create product",
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="price", type="number", format="float")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
      *         @OA\JsonContent(ref="#/components/schemas/Product")
      *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request",
+     *     )
      * )
      */
     public function store(ProductRequest $request)
@@ -143,7 +152,12 @@ class ProductController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="price", type="number", format="float")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,

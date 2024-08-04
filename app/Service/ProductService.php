@@ -31,11 +31,11 @@ class ProductService
     public function show(int $id)
     {
         try {
-            $product = Product::find($id)->first();
+            $product = Product::where('idProduct', $id)->first();
             if (!$product) {
                 throw new ProductException('Product not found');
             }
-            return ProductResource::collection($product);
+            return new ProductResource($product);
         } catch (\Exception $e) {
             throw new GeneralExceptionCatch($e->getMessage());
         }
@@ -44,7 +44,11 @@ class ProductService
     public function update(array $data, int $id)
     {
         try {
-            Product::where('idProduct', $id)->update($data);
+            $product = Product::where('idProduct', $id)->first();
+            if (!$product) {
+                throw new ProductException('Product not found');
+            }
+            $product->update($data);
             return new GeneralResource(['message' => 'success']);
         } catch (\Exception $e) {
             throw new GeneralExceptionCatch($e->getMessage());
