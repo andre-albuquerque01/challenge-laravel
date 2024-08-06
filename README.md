@@ -127,44 +127,44 @@ As URLs da API começam com `http://localhost/api/v1/`
 
 Rotas RESTful para Usuário
 
-```bash
+`
 POST /login: Autentica o usuário.
-```
+`
 
-```bash
+`
 POST /logout: Remove a autenticação do usuário.
-```
+`
 
-```bash
+`
 POST /users: Cria um novo usuário.
-```
+`
 
-```bash
+`
 GET /users: Retorna os detalhes de um usuário específico.
-```
+`
 
-```bash
+`
 PUT /users: Atualiza um usuário existente.
-```
+`
 
 Rotas RESTful para Produtos
 
-```bash
+`
 GET /products: Retorna uma lista de todos os produtos.
-```
+`
 
-```bash
+`
 POST /products: Cria um novo produto.
-```
+`
 
-```bash
+``
 GET /products/{id}: Retorna os detalhes de um produto específico identificado pelo {id}.
-```
+`
 
-```bash
+`
 PUT /products/{id}: Atualiza um produto existente identificado pelo {id}.
-```
+`
 
-```bash
+`
 DELETE /products/{id}: Remove um produto existente identificado pelo {id}.
-```
+`
