@@ -157,7 +157,7 @@ GET /products: Retorna uma lista de todos os produtos.
 POST /products: Cria um novo produto.
 `
 
-``
+`
 GET /products/{id}: Retorna os detalhes de um produto específico identificado pelo {id}.
 `
 
